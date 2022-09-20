@@ -12,6 +12,10 @@ import java.util.List;
 public class EmployeeServiceImpl implements EmployeeService {
     public List<Employee> employeeBook = new ArrayList<>();
 
+    public List<Employee> getEmployeeBook() {
+        return employeeBook;
+    }
+
     @Override
     public void addEmployee(String firstName, String lastName) {
         try{

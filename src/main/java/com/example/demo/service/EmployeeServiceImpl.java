@@ -17,28 +17,29 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void addEmployee(String firstName, String lastName) {
-        try{
+    public Employee addEmployee(String firstName, String lastName) {
+        try {
             findEmployee(firstName, lastName);
             throw new EmployeeAlreadyAddedException();
-        }catch (EmployeeNotFoundException e){
-            employeeBook.add(new Employee(firstName, lastName));
+        } catch (EmployeeNotFoundException e) {
+            Employee employee = new Employee(firstName, lastName);
+            employeeBook.add(employee);
+            return employee;
         }
     }
 
     @Override
-    public void removeEmployee(String firstName, String lastName) {
+    public Employee removeEmployee(String firstName, String lastName) {
         Employee employee = findEmployee(firstName, lastName);
         employeeBook.remove(employee);
+        return employee;
     }
 
     @Override
     public Employee findEmployee(String firstName, String lastName) {
         Employee testEmployee = new Employee(firstName, lastName);
-        for (Employee employee : employeeBook) {
-            if (employee.equals(testEmployee)) {
-                return employee;
-            }
+        if (employeeBook.contains(testEmployee)) {
+            return testEmployee;
         }
         throw new EmployeeNotFoundException();
     }

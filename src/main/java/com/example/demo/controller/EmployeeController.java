@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.util.Map;
 
 @RequestMapping("/employee")
 @RestController
@@ -27,7 +27,6 @@ public class EmployeeController {
     @GetMapping("/remove")
     public Employee removeEmployee(@RequestParam("name") String firstName,
                                    @RequestParam("surname") String lastName) {
-
         return employeeService.removeEmployee(firstName, lastName);
     }
 
@@ -38,7 +37,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/list")
-    public List<Employee> getList(){
+    public Map<String, Employee> getList(){
         return employeeService.getEmployeeBook();
     }
 }

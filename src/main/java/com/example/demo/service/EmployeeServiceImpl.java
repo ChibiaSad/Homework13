@@ -5,40 +5,38 @@ import com.example.demo.exceptions.EmployeeAlreadyAddedException;
 import com.example.demo.exceptions.EmployeeNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
-    public List<Employee> employeeBook = new ArrayList<>();
+    public Map<String, Employee> employeeBook = new HashMap<>();
 
-    public List<Employee> getEmployeeBook() {
+    public Map<String, Employee> getEmployeeBook() {
         return employeeBook;
     }
 
     @Override
     public Employee addEmployee(String firstName, String lastName) {
-        try {
-            findEmployee(firstName, lastName);
+        Employee testEmployee = new Employee(firstName, lastName);
+        if (employeeBook.containsKey(testEmployee.toString())) {
             throw new EmployeeAlreadyAddedException();
-        } catch (EmployeeNotFoundException e) {
-            Employee employee = new Employee(firstName, lastName);
-            employeeBook.add(employee);
-            return employee;
         }
+        employeeBook.put(testEmployee.toString(), testEmployee);
+        return testEmployee;
     }
 
     @Override
     public Employee removeEmployee(String firstName, String lastName) {
         Employee employee = findEmployee(firstName, lastName);
-        employeeBook.remove(employee);
+        employeeBook.remove(employee.toString());
         return employee;
     }
 
     @Override
     public Employee findEmployee(String firstName, String lastName) {
         Employee testEmployee = new Employee(firstName, lastName);
-        if (employeeBook.contains(testEmployee)) {
+        if (employeeBook.containsKey(testEmployee.toString())) {
             return testEmployee;
         }
         throw new EmployeeNotFoundException();

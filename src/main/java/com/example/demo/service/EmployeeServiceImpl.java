@@ -59,20 +59,16 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<Employee> printEmployeesData(int department) {
+    public List<Employee> EmployeesInDepartment(int department) {
         return employeeBook.values().stream()
                 .filter(e -> e.getDepartment() == department)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public Map<Integer, List<Employee>> printEmployeesByDepartments(){
+    public Map<Integer, List<Employee>> EmployeesByDepartments(){
         Map<Integer, List<Employee>> employeesByDepartment = new HashMap<>();
-        departments.forEach(d ->
-                employeesByDepartment.put(d, employeeBook.values().stream()
-                        .filter(e -> e.getDepartment().equals(d))
-                        .collect(Collectors.toList()))
-        );
+        departments.forEach(d -> employeesByDepartment.put(d, EmployeesInDepartment(d)));
         return employeesByDepartment;
     }
 }

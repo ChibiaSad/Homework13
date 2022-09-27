@@ -55,10 +55,10 @@ public class EmployeeController {
     }
     @GetMapping("/departments/all-by-department")
     public List<Employee> byDepartment(@RequestParam Integer department) {
-        return employeeService.printEmployeesData(department);
+        return employeeService.EmployeesInDepartment(department);
     }
     @GetMapping("/departments/all")
     public Map<Integer, List<Employee>> all(){
-        return employeeService.printEmployeesByDepartments();
+        return employeeService.EmployeesByDepartments();
     }
 }

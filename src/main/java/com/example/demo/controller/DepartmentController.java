@@ -29,7 +29,7 @@ public class DepartmentController {
         return departmentService.maxSalaryEmployee(department);
     }
 
-    @GetMapping("all-by-department")
+    @GetMapping(value = "all", params = "department")
     public List<Employee> byDepartment(@RequestParam Integer department) {
         return departmentService.employeesInDepartment(department);
     }

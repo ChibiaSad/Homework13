@@ -6,10 +6,14 @@ public class Employee {
 
     private final String firstName;
     private final String lastName;
+    private final Integer salary;
+    private final Integer department;
 
-    public Employee(String firstName, String lastName) {
+    public Employee(String firstName, String lastName, Integer salary, Integer department) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.salary = salary;
+        this.department = department;
     }
 
     public String getFirstName() {
@@ -18,6 +22,18 @@ public class Employee {
 
     public String getLastName() {
         return lastName;
+    }
+
+    public Integer getSalary() {
+        return salary;
+    }
+
+    public Integer getDepartment() {
+        return department;
+    }
+
+    public static int compareSalary(Employee a, Employee b){
+        return a.getSalary().compareTo(b.getSalary());
     }
 
     @Override

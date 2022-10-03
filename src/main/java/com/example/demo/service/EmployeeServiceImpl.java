@@ -5,20 +5,20 @@ import com.example.demo.exceptions.EmployeeAlreadyAddedException;
 import com.example.demo.exceptions.EmployeeNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
     public Map<String, Employee> employeeBook = new HashMap<>();
 
+    @Override
     public Map<String, Employee> getEmployeeBook() {
         return employeeBook;
     }
 
     @Override
-    public Employee addEmployee(String firstName, String lastName) {
-        Employee testEmployee = new Employee(firstName, lastName);
+    public Employee addEmployee(String firstName, String lastName, Integer salary, Integer department) {
+        Employee testEmployee = new Employee(firstName, lastName, salary, department);
         if (employeeBook.containsKey(testEmployee.toString())) {
             throw new EmployeeAlreadyAddedException();
         }
@@ -35,9 +35,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee findEmployee(String firstName, String lastName) {
-        Employee testEmployee = new Employee(firstName, lastName);
-        if (employeeBook.containsKey(testEmployee.toString())) {
-            return testEmployee;
+        if (employeeBook.containsKey(firstName + " " + lastName)) {
+            return employeeBook.get(firstName + " " + lastName);
         }
         throw new EmployeeNotFoundException();
     }

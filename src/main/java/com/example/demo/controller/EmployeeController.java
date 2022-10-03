@@ -20,8 +20,10 @@ public class EmployeeController {
 
     @GetMapping("/add")
     public Employee addEmployee(@RequestParam("name") String firstName,
-                                @RequestParam("surname") String lastName) {
-        return employeeService.addEmployee(firstName, lastName);
+                                @RequestParam("surname") String lastName,
+                                @RequestParam Integer salary,
+                                @RequestParam Integer department) {
+        return employeeService.addEmployee(firstName, lastName, salary, department);
     }
 
     @GetMapping("/remove")
@@ -37,7 +39,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/list")
-    public Map<String, Employee> getList(){
+    public Map<String, Employee> getList() {
         return employeeService.getEmployeeBook();
     }
 }

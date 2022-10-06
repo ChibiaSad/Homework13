@@ -1,8 +1,10 @@
 package com.example.demo.service;
 
 import com.example.demo.entities.Employee;
+import com.example.demo.exceptions.BadEmployeeNameExeption;
 import com.example.demo.exceptions.EmployeeAlreadyAddedException;
 import com.example.demo.exceptions.EmployeeNotFoundException;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -18,10 +20,17 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee addEmployee(String firstName, String lastName, Integer salary, Integer department) {
-        Employee testEmployee = new Employee(firstName, lastName, salary, department);
+        if (!StringUtils.isAlphaSpace(firstName) || !StringUtils.isAlphaSpace(lastName)) {
+            throw new BadEmployeeNameExeption();
+        }
+
+        Employee testEmployee = new Employee(StringUtils.capitalize(firstName),
+                StringUtils.capitalize(lastName), salary, department);
+
         if (employeeBook.containsKey(testEmployee.toString())) {
             throw new EmployeeAlreadyAddedException();
         }
+
         employeeBook.put(testEmployee.toString(), testEmployee);
         return testEmployee;
     }
@@ -35,8 +44,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee findEmployee(String firstName, String lastName) {
-        if (employeeBook.containsKey(firstName + " " + lastName)) {
-            return employeeBook.get(firstName + " " + lastName);
+        String key = firstName + " " + lastName;
+        if (employeeBook.containsKey(key)) {
+            return employeeBook.get(key);
         }
         throw new EmployeeNotFoundException();
     }

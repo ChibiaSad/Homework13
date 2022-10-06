@@ -1,10 +1,13 @@
 package com.example.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Objects;
 
 public class Employee {
-
+    @JsonProperty("first_name")
     private final String firstName;
+    @JsonProperty("last_name")
     private final String lastName;
     private final Integer salary;
     private final Integer department;
@@ -32,7 +35,7 @@ public class Employee {
         return department;
     }
 
-    public static int compareSalary(Employee a, Employee b){
+    public static int compareSalary(Employee a, Employee b) {
         return a.getSalary().compareTo(b.getSalary());
     }
 

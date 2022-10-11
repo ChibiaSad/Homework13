@@ -24,8 +24,8 @@ public class EmployeeServiceImpl implements EmployeeService {
             throw new BadEmployeeNameExeption();
         }
 
-        Employee testEmployee = new Employee(StringUtils.capitalize(firstName),
-                StringUtils.capitalize(lastName), salary, department);
+        Employee testEmployee = new Employee(StringUtils.capitalize(firstName.toLowerCase()),
+                StringUtils.capitalize(lastName.toLowerCase()), salary, department);
 
         if (employeeBook.containsKey(testEmployee.toString())) {
             throw new EmployeeAlreadyAddedException();
@@ -44,7 +44,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee findEmployee(String firstName, String lastName) {
-        String key = StringUtils.capitalize(firstName) + " " + StringUtils.capitalize(lastName);
+        String key = StringUtils.capitalize(firstName.toLowerCase()) + " " + StringUtils.capitalize(lastName.toLowerCase());
         if (employeeBook.containsKey(key)) {
             return employeeBook.get(key);
         }

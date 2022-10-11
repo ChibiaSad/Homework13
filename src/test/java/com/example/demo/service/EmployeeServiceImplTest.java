@@ -37,7 +37,7 @@ class EmployeeServiceImplTest {
 
     @Test
     void shouldFindEmployee() {
-        out.addEmployee("first", "first", 100, 1);
+        out.addEmployee("first", "fIRST", 100, 1);
         assertEquals(EMPLOYEE_1, out.findEmployee("first", "first"));
     }
 
